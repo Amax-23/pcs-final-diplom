@@ -19,12 +19,11 @@ public class BooleanSearchEngine implements SearchEngine {
             var pdf = new File(file[i].toURI());
             var doc = new PdfDocument(new PdfReader(pdf));
 
-            //System.out.println("Название файла " + pdf.getName());
-            //System.out.println("Количество страниц " + doc.getNumberOfPages());
+            System.out.println("Название файла " + pdf.getName());
+            System.out.println("Количество страниц " + doc.getNumberOfPages());
 
             for (int y = 1; y <= doc.getNumberOfPages(); y++) {
-                var page = doc.getPage(y);
-                var text = PdfTextExtractor.getTextFromPage(page);
+                var text = PdfTextExtractor.getTextFromPage(doc.getPage(y));
                 var words = text.split("\\P{IsAlphabetic}+");
                 Map<String, Integer> freqs = new HashMap<>();
                 for (var word : words) {
@@ -57,7 +56,8 @@ public class BooleanSearchEngine implements SearchEngine {
         for (var entry : mapEntry.entrySet()) {
             if (entry.getKey().contains(word) && entry.getKey().length() == word.length()) {
                 pageEntryList.addAll(entry.getValue());
-                //System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                System.out.println("На запрос = " + entry.getKey() + ", найдено совпадений = "
+                        + pageEntryList);
             }
         }
         return pageEntryList.stream()
