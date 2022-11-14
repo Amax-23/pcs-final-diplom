@@ -21,5 +21,10 @@
             <version>7.1.15</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-core</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 </project>

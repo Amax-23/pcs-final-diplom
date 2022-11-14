@@ -1,7 +1,11 @@
-public class PageEntry implements Comparable<PageEntry> {
+import java.io.Serializable;
+import java.util.Comparator;
+
+public class PageEntry implements Comparable<PageEntry>, Serializable {
     private final String pdfName;
     private final int page;
     private final int count;
+    //Comparator<PageEntry> comparator = Comparator.comparing(obj -> obj.getCount());
 
     public PageEntry(String pdfName, int page, int count) {
         this.pdfName = pdfName;
@@ -11,7 +15,8 @@ public class PageEntry implements Comparable<PageEntry> {
 
     @Override
     public int compareTo(PageEntry o) {
-        return 0;
+        return Integer.compare(this.getCount(), o.getCount());
+        //return 0;
     }
 
     public String getPdfName() {
@@ -26,4 +31,12 @@ public class PageEntry implements Comparable<PageEntry> {
         return count;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"pdfName\":" + '\"' + pdfName + '\"' +
+                ", \"page\":" + page +
+                ", \"count\":" + count +
+                '}';
+    }
 }
