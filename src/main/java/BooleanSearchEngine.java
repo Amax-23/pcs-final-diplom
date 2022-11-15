@@ -44,7 +44,9 @@ public class BooleanSearchEngine implements SearchEngine {
                         pageEntryList = new ArrayList<>();
                         pageEntryList.add(new PageEntry(pdf.getName(), y, freqs.get(entry.getKey())));
                     }
-                    mapEntry.put(entry.getKey(), pageEntryList);
+                    mapEntry.put(entry.getKey(), pageEntryList.stream()
+                            .sorted(Comparator.comparing(PageEntry::getCount).reversed())
+                            .collect(Collectors.toList()));
                 }
             }
         }
@@ -52,16 +54,6 @@ public class BooleanSearchEngine implements SearchEngine {
 
     @Override
     public List<PageEntry> search(String word) {
-        List<PageEntry> pageEntryList = new ArrayList<>();
-        for (var entry : mapEntry.entrySet()) {
-            if (entry.getKey().contains(word) && entry.getKey().length() == word.length()) {
-                pageEntryList.addAll(entry.getValue());
-                System.out.println("На запрос = " + entry.getKey() + ", найдено совпадений = "
-                        + pageEntryList);
-            }
-        }
-        return pageEntryList.stream()
-                .sorted(Comparator.comparing(PageEntry::getCount).reversed())
-                .collect(Collectors.toList());
+        return mapEntry.get(word.toLowerCase());
     }
 }

@@ -12,7 +12,7 @@ public class Main {
                      PrintWriter out = new PrintWriter(clientSocet.getOutputStream(), true);
                      BufferedReader in = new BufferedReader(new InputStreamReader(clientSocet.getInputStream()))) {
                     System.out.println("New connection accepted!");
-                    String inputSearch = in.readLine().toLowerCase();
+                    String inputSearch = in.readLine();
                     out.println(engine.search(inputSearch));
                 }
             }
